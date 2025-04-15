@@ -1,55 +1,83 @@
-# MyStatusWindows
-Projeto de automação residencial com Arduino R4 WiFi, que monitora a temperatura interna da casa, detecta chuva, controla uma janela automatizada e envia os dados para uma página web em Next.js acessível publicamente.
+# 🏠 Projeto: Monitoramento de Temperatura e Controle de Janela com Arduino + Next.js
 
-# 🌡️ Monitoramento de Temperatura e Controle de Janela com Arduino R4 WiFi
+Este repositório une hardware e software em um único projeto de automação residencial. Ele permite monitorar a temperatura e o clima, controlar automaticamente a janela e visualizar tudo isso através de uma página web moderna, hospedada na Vercel.
 
-Este projeto combina hardware e software para criar uma solução de automação residencial. Usando um Arduino R4 WiFi, sensores de temperatura e chuva, o sistema monitora o ambiente interno e envia os dados para uma aplicação Next.js hospedada na Vercel, permitindo que qualquer pessoa visualize o status da casa em tempo real pela internet.
+---
+
+## 📁 Estrutura do Repositório
+
+```
+/
+├── arduino/           # Código-fonte do Arduino R4 WiFi
+│   └── monitoramento_janela.ino
+│
+├── web/               # Projeto Next.js (página e API)
+│   ├── pages/
+│   ├── public/
+│   └── package.json
+│
+└── README.md
+```
 
 ---
 
 ## 🔧 Funcionalidades
 
-- 📶 Conexão automática à rede Wi-Fi
-- 🌡️ Leitura da temperatura interna (DHT11/DHT22)
-- 🌧️ Detecção de chuva (simulada ou real com sensor)
-- 🚪 Controle automatizado de janela (aberta/fechada)
-- 🕓 Histórico da última vez que a janela foi fechada
-- 🌐 Envio dos dados para uma API REST via HTTP POST
-- 💻 Visualização do status em tempo real via página Next.js
-
----
-
-## 🛠️ Componentes utilizados
-
-- Arduino R4 WiFi
-- Sensor DHT11 ou DHT22
-- Sensor de chuva (opcional, simulado no código)
-- Conexão com rede Wi-Fi
-- Projeto Next.js com API integrada (hospedado na Vercel)
-
----
-
-## 📦 Estrutura do Projeto
-
-### Arduino (este repositório)
+### Arduino (pasta `arduino/`):
 - Conecta ao Wi-Fi
-- Coleta dados dos sensores
-- Monta payload JSON
-- Envia os dados via POST para `/api/atualizar` da aplicação Next.js
+- Lê temperatura (DHT11)
+- Detecta chuva (simulado ou sensor físico)
+- Controla janela automática
+- Envia JSON com status para o Next.js via HTTP POST
 
-### Página Web (Next.js)
-- Recebe os dados pela API
-- Armazena e disponibiliza via endpoint `/api/status`
-- Exibe na interface web os dados em tempo real
+### Web (pasta `web/`):
+- API Routes para `/api/status` e `/api/atualizar`
+- Exibe temperatura, status da chuva e janela, e o horário da última ação
+- Hospedável na Vercel com deploy automático
 
 ---
 
 ## 🚀 Como usar
 
-### 1. Configure seu Wi-Fi
-Edite no código as variáveis com sua rede:
+### 1. Clone o repositório
+```bash
+git clone https://github.com/seuusuario/nome-do-repo.git
+cd nome-do-repo
+```
 
-```cpp
-char ssid[] = "SUA_REDE_WIFI";
-char pass[] = "SUA_SENHA_WIFI";
+### 2. Configure o Arduino
+- Edite o `monitoramento_janela.ino` com sua rede Wi-Fi
+- Altere a URL da API para a URL do seu site Vercel
+- Compile e envie para o Arduino R4 WiFi
 
+### 3. Execute o projeto web
+```bash
+cd web
+npm install
+npm run dev
+```
+
+### 4. Faça o deploy na Vercel
+- Crie uma conta em [vercel.com](https://vercel.com)
+- Conecte com seu GitHub
+- Escolha este repositório
+- Configure a pasta raiz do projeto para `web/`
+
+---
+
+## 🧪 Exemplo de JSON enviado pelo Arduino
+
+```json
+{
+  "temperatura": 24.5,
+  "chovendo": true,
+  "janela": "fechada",
+  "ultima_fechada": "2025-04-15 17:00"
+}
+```
+
+---
+
+## 📄 Licença
+
+Distribuído sob licença MIT. Sinta-se livre para usar, modificar e compartilhar. 😄
