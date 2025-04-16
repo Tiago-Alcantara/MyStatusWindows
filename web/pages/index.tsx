@@ -32,12 +32,12 @@ export default function Home() {
           </div>
 
           <div className="flex items-center justify-between bg-gray-800 rounded-xl px-4 py-3">
-            <span className="text-base sm:text-lg">🚪 Janela</span>
+            <span className="text-base sm:text-lg">🪟 Janela</span>
             <span className={`font-bold ${status.janela === 'fechada' ? 'text-red-400' : 'text-green-400'}`}> {status.janela.charAt(0).toUpperCase() + status.janela.slice(1)} </span>
           </div>
 
           <div className="flex items-center justify-between bg-gray-800 rounded-xl px-4 py-3">
-            <span className="text-base sm:text-lg">🕓 Última fechada</span>
+            <span className="text-base sm:text-lg">🕓 Última vez que foi fechada</span>
             <span className="text-gray-300 text-sm text-right">{status.ultima_fechada}</span>
           </div>
         </div>
