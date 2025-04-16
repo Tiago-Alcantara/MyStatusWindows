@@ -1,6 +1,6 @@
 # 🏠 Projeto: Monitoramento de Temperatura e Controle de Janela com Arduino + Next.js
 
-Este repositório une hardware e software em um único projeto de automação residencial. Ele permite monitorar a temperatura e o clima, controlar automaticamente a janela e visualizar tudo isso através de uma página web moderna, hospedada na Vercel.
+Este repositório une hardware e software em um único projeto de automação residencial. Ele permite monitorar a temperatura e o clima, controlar automaticamente a janela e visualizar tudo isso através de uma página web moderna, hospedada na Vercel ou executada via Docker.
 
 ---
 
@@ -11,10 +11,14 @@ Este repositório une hardware e software em um único projeto de automação re
 ├── arduino/           # Código-fonte do Arduino R4 WiFi
 │   └── monitoramento_janela.ino
 │
-├── web/               # Projeto Next.js (página e API)
+├── web/               # Projeto Next.js com Tailwind e Docker
 │   ├── pages/
 │   ├── public/
-│   └── package.json
+│   ├── styles/
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── tailwind.config.js
+│   └── postcss.config.js
 │
 └── README.md
 ```
@@ -24,44 +28,53 @@ Este repositório une hardware e software em um único projeto de automação re
 ## 🔧 Funcionalidades
 
 ### Arduino (pasta `arduino/`):
-- Conecta ao Wi-Fi
+- Conecta ao Wi-Fi (inclusive via hotspot de celular)
 - Lê temperatura (DHT11)
-- Detecta chuva (simulado ou sensor físico)
+- Detecta chuva (simulado)
 - Controla janela automática
-- Envia JSON com status para o Next.js via HTTP POST
+- Envia JSON com status para o backend via HTTPS
 
 ### Web (pasta `web/`):
 - API Routes para `/api/status` e `/api/atualizar`
-- Exibe temperatura, status da chuva e janela, e o horário da última ação
-- Hospedável na Vercel com deploy automático
+- Exibe temperatura, status da chuva e janela
+- Interface com Tailwind CSS responsivo
+- Pode ser executada localmente com Docker
 
 ---
 
-## 🚀 Como usar
+## 🚀 Como usar com Docker
 
-### 1. Clone o repositório
-```bash
-git clone https://github.com/seuusuario/nome-do-repo.git
-cd nome-do-repo
-```
+1. **Clone o repositório**
+   ```bash
+   git clone https://github.com/seuusuario/nome-do-repo.git
+   cd nome-do-repo/web
+   ```
 
-### 2. Configure o Arduino
-- Edite o `monitoramento_janela.ino` com sua rede Wi-Fi
-- Altere a URL da API para a URL do seu site Vercel
-- Compile e envie para o Arduino R4 WiFi
+2. **Build da imagem Docker**
+   ```bash
+   docker build -t status-janela .
+   ```
 
-### 3. Execute o projeto web
-```bash
-cd web
-npm install
-npm run dev
-```
+3. **Executar o container**
+   ```bash
+   docker run -p 3000:3000 status-janela
+   ```
 
-### 4. Faça o deploy na Vercel
-- Crie uma conta em [vercel.com](https://vercel.com)
-- Conecte com seu GitHub
-- Escolha este repositório
-- Configure a pasta raiz do projeto para `web/`
+4. **Acesse no navegador**
+   ```
+   http://localhost:3000
+   ```
+
+---
+
+## 🎨 Tailwind CSS
+
+A interface web usa Tailwind para o estilo moderno e responsivo. Os principais arquivos são:
+
+- `styles/globals.css`
+- `pages/_app.tsx`
+- `tailwind.config.js`
+- `postcss.config.js`
 
 ---
 
